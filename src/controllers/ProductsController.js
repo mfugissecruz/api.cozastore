@@ -1,4 +1,4 @@
-const db = require("../config/connectDB");
+const db = require("../config/dbConnect");
 
 class ProductsController {
   async index(req, res, next) {

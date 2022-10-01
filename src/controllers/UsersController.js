@@ -6,7 +6,7 @@
  * function destroy - DELETE -> para remover um registo.
  */
 
-const db = require('../config/connectDB');
+const db = require('../config/dbConnect');
 
 class UsersController {
     async index (req, res, next) {
