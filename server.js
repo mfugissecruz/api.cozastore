@@ -7,10 +7,14 @@ const app = express();
 const routes = require('./src/routes');
 
 app.use(routes);
+
+app.use(express.json())
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
-app.use((req, res, next)=>{
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use((req, res, next)=> {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
         'Access-Control-Allow-Header',
@@ -39,4 +43,8 @@ app.use((error, req, res, next) => {
     });
 });
 const PORT = process.env.PORT || 5555;
-app.listen(PORT)
+app.listen(PORT, () => {
+    console.log(`running on port ${PORT}`);
+})
+
+
