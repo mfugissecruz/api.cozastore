@@ -1,4 +1,4 @@
-require("dotenv/config")
+require("dotenv/config");
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -38,5 +38,5 @@ app.use((error, req, res, next) => {
         }
     });
 });
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 5555;
 app.listen(PORT)
