@@ -1,3 +1,5 @@
+require("dotenv/config")
+
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
@@ -36,5 +38,5 @@ app.use((error, req, res, next) => {
         }
     });
 });
-
-app.listen(3000)
+const PORT = process.env.PORT || 3333;
+app.listen(PORT)
