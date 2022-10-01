@@ -9,7 +9,7 @@
 const db = require('../config/connectDB');
 
 class UsersController {
-    async index (req, res) {
+    async index (req, res, next) {
         try {
             const users = await db.query(`SELECT * FROM customers`);
             res.json({
@@ -18,9 +18,11 @@ class UsersController {
         } catch (error) {
             res.status(500).json({ error });
         }
+
+        next();
     }
 
-    async show (req, res) {
+    async show (req, res, next) {
         let id = req.params.id;
 
         try {
@@ -31,14 +33,18 @@ class UsersController {
         } catch (error) {
             res.status(500).json({ error });
         }
+
+        next();
     }
 
-    store (req, res) {
+    store (req, res, next) {
         const { name, email } = JSON.parse(req.body); 
-        res.status(200).json({ name, email })
+        res.status(200).json({ name, email });
+
+        next();
     }
 
-    async store (req, res) {
+    async store (req, res, next) {
         try {
             const { name, phone, address, email, password  } = JSON.parse(req.body);
             const user = await db.none
@@ -49,6 +55,8 @@ class UsersController {
         } catch (error) {
             res.status(500).json({ error });
         }
+    
+        next();
     }
 }
 
