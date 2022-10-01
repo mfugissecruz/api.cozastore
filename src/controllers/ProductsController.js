@@ -5,7 +5,7 @@ class ProductsController {
     try {
       const product = await db.query(`SELECT * FROM products`);
       res.json({
-        products,
+        product,
       });
     } catch (error) {
       res.status(500).json({ error });
