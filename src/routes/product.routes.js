@@ -1,10 +1,11 @@
 const { Router } = require('express');
-const productRoutes = Router();
+const ProdcutsController = require('../controllers/ProdcutsController');
+const prdocutsRoutes = Router();
 
-productRoutes.get('/', (req, res) => {
-    res.status(200).json({
-        "message": "product route",
-    });
-});
+const prodcutsController = new ProdcutsController();
 
-module.exports = productRoutes;
+prdocutsRoutes.get('/', prodcutsController.index);
+prdocutsRoutes.get('/', prodcutsController.show);
+
+
+module.exports = userRoutes;
