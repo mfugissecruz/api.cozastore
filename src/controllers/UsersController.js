@@ -6,7 +6,7 @@
  * function destroy - DELETE -> para remover um registo.
  */
 
-const db = require('../config/dbConnect');
+const db = require('../config/db/connect');
 
 class UsersController {
     async index (req, res, next) {
@@ -14,12 +14,13 @@ class UsersController {
             const users = await db.query(`SELECT * FROM customers`);
             res.json({
                 users
-            })
+            });
+
+            next();
         } catch (error) {
             res.status(500).json({ error });
         }
 
-        next();
     }
 
     async show (req, res, next) {
@@ -29,18 +30,18 @@ class UsersController {
             const users = await db.query(`SELECT * FROM customers WHERE id = ${id}`);
             res.json({
                 users
-            })
+            });
+
+            next();
         } catch (error) {
             res.status(500).json({ error });
         }
 
-        next();
     }
 
     store (req, res, next) {
         const { name, email } = JSON.parse(req.body); 
         res.status(200).json({ name, email });
-
         next();
     }
 
@@ -52,27 +53,12 @@ class UsersController {
             [user.name, user.phone, user.address, user.email, user.password]);
             
             res.json({user})
+            next();
         } catch (error) {
             res.status(500).json({ error });
         }
     
-        next();
     }
 }
 
 module.exports = UsersController;
-
-// const db = require("./db");
-
-// module.exports = {
-//   async findById(req, res) {
-//     let id = req.params.id;
-
-//     try {
-//       let response = await db.query(`SELECT * FROM products WHERE id = ${id}`);
-//       res.json(response[0]);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   },
-// };

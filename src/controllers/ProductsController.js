@@ -1,32 +1,36 @@
-const db = require("../config/dbConnect");
+const db = require("../config/db/connect");
 
 class ProductsController {
   async index(req, res, next) {
     try {
       const product = await db.query(`SELECT * FROM products`);
       res.json({
-        product,
+        product
       });
+
+      next();
+
     } catch (error) {
       res.status(500).json({ error });
     }
-    next();
   }
 
   async show(req, res, next) {
-    let slug = req.params.slug;
-
+    let id = req.params.id;
+    console.log(id);
     try {
       const products = await db.query(
-        `SELECT * FROM products WHERE id = ${slug}`
+        `SELECT * FROM products WHERE id = ${id}`
       );
       res.json({
         products,
       });
+      
+      next();
+
     } catch (error) {
       res.status(500).json({ error });
     }
-    next();
   }
 }
 

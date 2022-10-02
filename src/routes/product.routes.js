@@ -5,7 +5,7 @@ const productsRoutes = Router();
 const productsController = new ProductsController();
 
 productsRoutes.get('/', productsController.index);
-productsRoutes.get('/', productsController.show);
+productsRoutes.get('/:slug', productsController.show);
 
 
 module.exports = productsRoutes;
