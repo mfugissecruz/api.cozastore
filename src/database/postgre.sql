@@ -5,7 +5,7 @@ CREATE TABLE customers (
     phone varchar(50) NOT NULL,
     address varchar(150) NOT NULL,
     email varchar(100) NOT NULL,
-    password varchar(50) NOT NULL,
+    password varchar(100) NOT NULL,
     CONSTRAINT customers_pk PRIMARY KEY (id)
 );
 

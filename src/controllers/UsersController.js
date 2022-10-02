@@ -6,58 +6,45 @@
  * function destroy - DELETE -> para remover um registo.
  */
 
-const db = require('../config/db/connect');
+const db = require('../configs/db/connect');
 
 class UsersController {
-    async index (req, res, next) {
+    async index (req, res) {
         try {
             const users = await db.query(`SELECT * FROM customers`);
-            res.json({
-                users
-            });
-
-            next();
+            res.json(users);
         } catch (error) {
             res.status(500).json({ error });
         }
 
     }
 
-    async show (req, res, next) {
-        let id = req.params.id;
-
+    async show (req, res) {
+        const user_id = req.user.id;
+        console.log(user_id, req.user.id);
         try {
-            const users = await db.query(`SELECT * FROM customers WHERE id = ${id}`);
+            const users = await db.query(`SELECT * FROM customers WHERE id = ${user_id}`);
             res.json({
                 users
             });
-
-            next();
         } catch (error) {
             res.status(500).json({ error });
         }
 
     }
 
-    store (req, res, next) {
-        const { name, email } = JSON.parse(req.body); 
-        res.status(200).json({ name, email });
-        next();
-    }
-
-    async store (req, res, next) {
+    async store (req, res) {
         try {
-            const { name, phone, address, email, password  } = JSON.parse(req.body);
+            const { name, phone, address, email, password } = req.body;
             const user = await db.none
-            (`INSERT INTO customers (name, phone, address, email, password)] VALUES ($1, $2, $3, $4, $5, $6,)`,
+            (`INSERT INTO customers (${name}, ${phone}, ${address}, ${email}, ${password})] VALUES ($1, $2, $3, $4, $5, $6,)`,
             [user.name, user.phone, user.address, user.email, user.password]);
             
             res.json({user})
-            next();
+
         } catch (error) {
             res.status(500).json({ error });
         }
-    
     }
 }
 

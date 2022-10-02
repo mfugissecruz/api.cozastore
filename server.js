@@ -1,19 +1,14 @@
 require("dotenv/config");
+require("express-async-errors");
 
-const bodyParser = require('body-parser');
 const express = require('express');
-const morgan = require('morgan');
 const app = express();
 const routes = require('./src/routes');
+const AppError = require("./src/utils/AppError");
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 app.use(routes);
-
-app.use(express.json())
-app.use(morgan('dev'));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use((req, res, next)=> {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -28,20 +23,22 @@ app.use((req, res, next)=> {
 
     next();
 });
-
-app.use((req, res, next) => {
-    const error = new Error('Not Found');
-    error.status = 404;
-    next(error);
-});
 app.use((error, req, res, next) => {
-    res.status(error.statusCode || 500);
-    return res.json({
-        error: {
-            'message': error.message
-        }
-    });
-});
+    if(error instanceof AppError) {
+        return res.status(error.statusCode).json({
+            status: "error",
+            message: error.message
+        });
+    }
+
+    console.error(error)
+
+    return res.status(500).json({
+        status: "error",
+        message: "Internal server error"
+    })
+})
+
 const PORT = process.env.PORT || 5555;
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);

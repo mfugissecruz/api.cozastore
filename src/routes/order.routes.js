@@ -1,7 +1,8 @@
 const { Router } = require('express');
-const orderRoutes = Router();
+const ensureAuthenticated = require('../middleware/ensureAuthenticated');
 
-orderRoutes.get('/', (req, res) => {
+const orderRoutes = Router();
+orderRoutes.get('/', ensureAuthenticated, (req, res) => {
     res.status(200).json({
         "message": "order route"
     });
