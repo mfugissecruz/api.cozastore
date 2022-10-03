@@ -11,7 +11,7 @@ const pool = require('../configs/db/connect');
 class UsersController {
     async index (req, res) {
         try {
-            await pool.query(`SELECT * FROM customers;`, (err, response) => {
+            pool.query(`SELECT * FROM customers;`, (err, response) => {
                 if (err){
                     console.log("Error - Failed to select all from Users");
                     console.log(err);
@@ -32,9 +32,9 @@ class UsersController {
         const user_id = req.user.id;
         console.log(user_id, req.user.id);
         try {
-            const users = await pool.query(`SELECT * FROM customers WHERE id = ${user_id}`);
+            const user = await pool.query(`SELECT * FROM customers WHERE id = ${user_id}`);
             res.json({
-                users
+                user
             });
         } catch (error) {
             res.status(500).json({ error });
@@ -56,7 +56,7 @@ class UsersController {
                 }
             );
         
-            return res.status(200).json({user});
+            return res.status(201)
 
         } catch (error) {
             res.status(500).json({ error });

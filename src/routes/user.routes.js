@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const UsersController = require('../controllers/UsersController');
-const ensureAuthenticated = require('../middleware/ensureAuthenticated');
+// const ensureAuthenticated = require('../middleware/ensureAuthenticated');
 
 const usersController = new UsersController();
 const userRoutes = Router();
 userRoutes.get('/', usersController.index);
-userRoutes.get('/', ensureAuthenticated, usersController.show);
+userRoutes.get('/', usersController.show);
 userRoutes.post('/', usersController.store);
 
 module.exports = userRoutes;
