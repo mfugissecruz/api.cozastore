@@ -1,13 +1,21 @@
-const db = require("../configs/db/connect");
+const pool = require("../configs/db/connect");
 
 class HomeController {
   async index(req, res) {
     try {
-      const products = await db.query(
+      pool.query(
         // `SELECT * FROM products WHERE pilot = true`
-        `SELECT * FORM products`
+        `SELECT * FORM products`, (error, response) => {
+          if(error){
+            throw new AppError(error, 401)
+          } else {
+            const products = response.rows
+            res.json({
+              products,
+            })
+          }
+        }
       );
-      res.json(products);
     } catch (error) {
       res.status(500).json({ error });
     }
