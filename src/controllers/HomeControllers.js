@@ -4,7 +4,8 @@ class HomeController {
   async index(req, res) {
     try {
       const products = await db.query(
-        `SELECT * FROM products WHERE pilot = true`
+        // `SELECT * FROM products WHERE pilot = true`
+        `SELECT * FORM products`
       );
       res.json(products);
     } catch (error) {
