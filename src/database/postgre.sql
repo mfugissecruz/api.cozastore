@@ -1,12 +1,12 @@
 -- Table: customers
 CREATE TABLE customers (
-    id serial,
+    id SERIAL PRIMARY KEY,
     name varchar(150) NOT NULL,
     phone varchar(50) NOT NULL,
     address varchar(150) NOT NULL,
     email varchar(100) NOT NULL,
     password varchar(100) NOT NULL,
-    CONSTRAINT customers_pk PRIMARY KEY (id)
+    -- CONSTRAINT customers_pk PRIMARY KEY (id)
 );
 
 -- Table: orders

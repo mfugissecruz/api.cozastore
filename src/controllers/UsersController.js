@@ -36,11 +36,10 @@ class UsersController {
     async store (req, res) {
         try {
             const { name, phone, address, email, password } = req.body;
-            const user = await db.none
-            (`INSERT INTO customers (${name}, ${phone}, ${address}, ${email}, ${password})] VALUES ($1, $2, $3, $4, $5, $6,)`,
-            [user.name, user.phone, user.address, user.email, user.password]);
-            
-            res.json({user})
+            const user = await db.none('INSERT INTO customers(name, phone, address, email, password) VALUES(${name}, ${phone}, ${address}, ${email}, ${password})',
+            { name, phone, address, email, password });
+        
+            return res.status(200).json({user});
 
         } catch (error) {
             res.status(500).json({ error });
@@ -49,3 +48,4 @@ class UsersController {
 }
 
 module.exports = UsersController;
+

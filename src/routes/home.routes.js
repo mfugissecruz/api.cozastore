@@ -1,10 +1,9 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const homeRoutes = Router();
+const HomeController = require("../controllers/HomeControllers");
 
-homeRoutes.get('/', (req, res) => {
-    res.status(200).json({
-        "message": "home route"
-    });
-});
+const homeController = new HomeController();
+
+homeRoutes.get("/", homeController.index);
 
 module.exports = homeRoutes;
