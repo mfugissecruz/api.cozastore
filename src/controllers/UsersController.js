@@ -11,10 +11,10 @@ const pool = require('../configs/db/connect');
 class UsersController {
     async index (req, res) {
         try {
-            pool.query(`SELECT * FROM customers;`, (err, response) => {
-                if (err){
-                    console.log("Error - Failed to select all from Users");
-                    console.log(err);
+            pool.query(`SELECT * FROM customers;`, (error, response) => {
+                if (error){
+                    console.log("Error - Failed to select all from Customers");
+                    console.log(error);
                 } else {
                     const users = response.rows
                     res.json({
@@ -33,7 +33,14 @@ class UsersController {
         // console.log(user_id, req.user.id);
         const { id } = req.params; 
         try {
-            const user = await pool.query(`SELECT * FROM customers WHERE id = ${id}`);
+            pool.query(`SELECT * FROM customers WHERE id = ${id}`, (error, response) => {
+                if(error){
+                    console.log("Error - Failed to select user from Customers");
+                    console.log(error)
+                } else {
+                    const user = response.rows
+                }
+            });
             res.json({
                 user
             });
@@ -49,10 +56,10 @@ class UsersController {
 
             await pool.query(
                 `INSERT INTO customers (name, phone, address, email, password) VALUES('${name}', '${phone}', '${address}', '${email}', '${password}')`,  
-                (err, response) => {
-                    if (err){
-                        console.log("Error - Failed to insert data into Users");
-                        console.log(err);
+                (error, response) => {
+                    if (error){
+                        console.log("Error - Failed to insert data into Customers");
+                        console.log(error);
                     }
                 }
             );
