@@ -5,7 +5,7 @@
  * function update - PUT -> para atualizar um registro,
  * function destroy - DELETE -> para remover um registo.
  */
-
+const AppError = require('../utils/AppError');
 const pool = require('../configs/db/connect');
 
 class UsersController {
@@ -13,8 +13,7 @@ class UsersController {
         try {
             pool.query(`SELECT * FROM customers;`, (error, response) => {
                 if (error){
-                    console.log("Error - Failed to select all from Customers");
-                    console.log(error);
+                    throw new AppError(error, 401);
                 } else {
                     const users = response.rows
                     res.json({
@@ -35,8 +34,7 @@ class UsersController {
         try {
             pool.query(`SELECT * FROM customers WHERE id = ${id}`, (error, response) => {
                 if(error){
-                    console.log("Error - Failed to select user from Customers");
-                    console.log(error)
+                    throw new AppError(error, 401);
                 } else {
                     const user = response.rows
                     res.json({
@@ -55,12 +53,11 @@ class UsersController {
         try {
             const { name, phone, address, email, password } = req.body;
 
-            await pool.query(
+            pool.query(
                 `INSERT INTO customers (name, phone, address, email, password) VALUES('${name}', '${phone}', '${address}', '${email}', '${password}')`,  
                 (error, response) => {
                     if (error){
-                        console.log("Error - Failed to insert data into Customers");
-                        console.log(error);
+                        throw new AppError(error, 401);
                     }
                 }
             );
