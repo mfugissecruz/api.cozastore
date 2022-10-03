@@ -9,9 +9,7 @@ class HomeController {
             throw new AppError(error, 401)
           } else {
             const products = response.rows
-            res.json({
-              products,
-            })
+            res.json(products)
           }
         }
       );
