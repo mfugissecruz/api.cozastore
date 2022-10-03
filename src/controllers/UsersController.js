@@ -39,11 +39,12 @@ class UsersController {
                     console.log(error)
                 } else {
                     const user = response.rows
+                    res.json({
+                        user
+                    })
                 }
             });
-            res.json({
-                user
-            });
+            
         } catch (error) {
             res.status(500).json({ error });
         }
