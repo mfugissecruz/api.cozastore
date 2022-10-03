@@ -29,10 +29,11 @@ class UsersController {
     }
 
     async show (req, res) {
-        const user_id = req.user.id;
-        console.log(user_id, req.user.id);
+        // const user_id = req.user.id;
+        // console.log(user_id, req.user.id);
+        const { id } = req.params; 
         try {
-            const user = await pool.query(`SELECT * FROM customers WHERE id = ${user_id}`);
+            const user = await pool.query(`SELECT * FROM customers WHERE id = ${id}`);
             res.json({
                 user
             });

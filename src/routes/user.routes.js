@@ -5,7 +5,7 @@ const UsersController = require('../controllers/UsersController');
 const usersController = new UsersController();
 const userRoutes = Router();
 userRoutes.get('/', usersController.index);
-userRoutes.get('/', usersController.show);
+userRoutes.get('/:id', usersController.show);
 userRoutes.post('/', usersController.store);
 
 module.exports = userRoutes;
