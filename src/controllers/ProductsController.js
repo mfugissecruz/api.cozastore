@@ -1,6 +1,5 @@
 const AppError = require('../utils/AppError');
 const pool = require("../configs/db/connect");
-const { response } = require('express');
 
 class ProductsController {
   async index(req, res) {

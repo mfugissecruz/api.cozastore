@@ -3,12 +3,13 @@ require("express-async-errors");
 
 const express = require('express');
 const app = express();
+
 const routes = require('./src/routes');
 const AppError = require("./src/utils/AppError");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
-app.use(routes);
+app.use(express.urlencoded({ extended: true }));
+
 app.use((req, res, next)=> {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -23,6 +24,9 @@ app.use((req, res, next)=> {
 
     next();
 });
+
+app.use(routes);
+
 app.use((error, req, res, next) => {
     if(error instanceof AppError) {
         return res.status(error.statusCode).json({
