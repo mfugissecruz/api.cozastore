@@ -1,4 +1,5 @@
 const pool = require("../configs/db/connect");
+const AppError = require("../utils/AppError");
 
 class HomeController {
   async index(req, res) {
