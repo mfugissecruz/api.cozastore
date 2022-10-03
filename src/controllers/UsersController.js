@@ -45,7 +45,7 @@ class UsersController {
             const { name, phone, address, email, password } = req.body;
 
             await pool.query(
-                `INSERT INTO customers (name, phone, address, email, password) VALUES(${name}, ${phone}, ${address}, ${email}, ${password})`,  
+                `INSERT INTO customers (name, phone, address, email, password) VALUES('${name}', '${phone}', '${address}', '${email}', '${password}')`,  
                 (err, response) => {
                     if (err){
                         console.log("Error - Failed to insert data into Users");
