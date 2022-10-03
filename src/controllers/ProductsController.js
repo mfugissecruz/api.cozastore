@@ -25,9 +25,9 @@ class ProductsController {
   }
 
   async show(req, res) {
-    let slug = req.params.slug;
+    const { slug } = req.params;
     try {
-      pool.query(`SELECT * FROM products WHERE slug = '${slug}'`, () => {
+      pool.query(`SELECT * FROM products WHERE slug = '${slug}'`, (error, response) => {
         if(error){
           throw new AppError(error, 401);
         } else {
