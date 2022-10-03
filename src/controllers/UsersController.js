@@ -15,6 +15,8 @@ class UsersController {
                 if (err){
                     console.log("Error - Failed to select all from Users");
                     console.log(err);
+                } else {
+                    return res.rows
                 }
             });
             res.json(users);
@@ -41,8 +43,16 @@ class UsersController {
     async store (req, res) {
         try {
             const { name, phone, address, email, password } = req.body;
-            const user = await pool.none('INSERT INTO customers(name, phone, address, email, password) VALUES(${name}, ${phone}, ${address}, ${email}, ${password})',
-            { name, phone, address, email, password });
+            const user = await pool.query(
+                `INSERT INTO customers(name, phone, address, email, password) VALUES(${name}, ${phone}, ${address}, ${email}, ${password})`,
+            { name, phone, address, email, password }, (err, res) => {
+                if (err){
+                    console.log("Error - Failed to insert data into Users");
+                    console.log(err);
+                } else {
+                    return res.rows
+                }
+            });
         
             return res.status(200).json({user});
 
