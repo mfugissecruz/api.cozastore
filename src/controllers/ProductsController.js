@@ -40,7 +40,7 @@ class ProductsController {
     const {slug} = req.params;
 
     try {
-      pool.query(`SELECT * FROM products WHERE slug = '${slug}' AND color = ${color}`, (error, response) => {
+      pool.query(`SELECT * FROM products WHERE slug = '${slug}' AND color = '${color}'`, (error, response) => {
         if(error){
           throw new AppError(error, 401);
         } else {
