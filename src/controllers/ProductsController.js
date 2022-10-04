@@ -1,5 +1,6 @@
 const AppError = require('../utils/AppError');
 const pool = require("../configs/db/connect");
+const { response } = require('express');
 
 class ProductsController {
   async index(req, res) {
@@ -51,6 +52,23 @@ class ProductsController {
       res.status(500).json({error});
     }
   }
+
+  async findbySize (req, res) {
+    const {slug} = req.params;
+	const size = req.query['size']
+	try {
+		pool.query(`SELECT * FROM products WHERE slug = '${slug}' AND size = '${size}'`, (error, response) => {
+			if(error) { 
+				throw new AppError(error, 401);
+			} else {
+				res.json(response.rows)	
+			}
+		});
+	} catch (error) {
+		res.status(500).json({error});
+	}
+  }
+
 }
 
 module.exports = ProductsController;
