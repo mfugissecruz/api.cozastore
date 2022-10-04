@@ -6,7 +6,7 @@ const productsController = new ProductsController();
 
 productsRoutes.get('/', productsController.index);
 productsRoutes.get('/:slug', productsController.show);
-productsRoutes.get('/:slug/p', productsController.findbyQuery);
+productsRoutes.get('/:slug/p', productsController.findbyColor);
 
 
 

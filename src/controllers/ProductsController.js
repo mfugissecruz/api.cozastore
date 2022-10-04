@@ -34,7 +34,7 @@ class ProductsController {
     }
   }
 
-  async findbyQuery(req, res) {
+  async findbyColor(req, res) {
 
     const color = req.query['color'];
     const {slug} = req.params;
