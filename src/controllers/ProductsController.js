@@ -26,10 +26,7 @@ class ProductsController {
         if(error){
           throw new AppError(error, 401);
         } else {
-          const product = response.rows;
-          res.json(
-            product,
-          );
+          res.json(response.rows);
         }
       });
     } catch (error) {
@@ -38,9 +35,21 @@ class ProductsController {
   }
 
   async findbyQuery(req, res) {
+
     const color = req.query['color'];
     const {slug} = req.params;
-    res.json({slug, color})
+
+    try {
+      pool.query(`SELECT * FROM products WHERE slug = '${slug}' AND color = ${color}`, (error, response) => {
+        if(error){
+          throw new AppError(error, 401);
+        } else {
+          res.json(response.rows);
+        }
+      });
+    } catch(error){
+      res.status(500).json({error});
+    }
   }
 }
 
