@@ -4,14 +4,14 @@ const pool = require("../configs/db/connect");
 class ProductsController {
   async index(req, res) {
     try {
-        pool.query(`SELECT * FROM products`, (error, response) => {
+        pool.query(`SELECT * FROM products;`, (error, response) => {
           if(error){
             throw new AppError(error, 401)
           } else {
             const products = response.rows
-            res.json({
+            res.json(
               products,
-            })
+            )
           }
         });
       return res.json({
@@ -31,9 +31,9 @@ class ProductsController {
           throw new AppError(error, 401);
         } else {
           const product = response.rows;
-          res.json({
+          res.json(
             product,
-          });
+          );
         }
       });
     } catch (error) {
