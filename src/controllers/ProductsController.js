@@ -36,6 +36,11 @@ class ProductsController {
       res.status(500).json({ error });
     }
   }
+
+  async findbyQuery(req, res) {
+    const color = req.query.color
+    res.json(color)
+  }
 }
 
 module.exports = ProductsController;

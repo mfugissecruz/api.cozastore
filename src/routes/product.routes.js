@@ -6,6 +6,8 @@ const productsController = new ProductsController();
 
 productsRoutes.get('/', productsController.index);
 productsRoutes.get('/:slug', productsController.show);
+productsRoutes.get('/:slug?', productsController.findbyQuery);
+
 
 
 module.exports = productsRoutes;
