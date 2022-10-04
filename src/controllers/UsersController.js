@@ -16,9 +16,7 @@ class UsersController {
                     throw new AppError(error, 401);
                 } else {
                     const users = response.rows
-                    res.json(
-                        users,
-                    )
+                    res.json(users)
                 }
             });
         } catch (error) {
