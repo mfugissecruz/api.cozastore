@@ -32,7 +32,6 @@ class OrdersControllers {
                 })
             }
         })
-        // pool.end();
     }
 }
 
