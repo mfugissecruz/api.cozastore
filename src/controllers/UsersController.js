@@ -63,7 +63,7 @@ class UsersController {
                 }
         });
 
-        pool.end();
+        // pool.end();
     
     }
 }

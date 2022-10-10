@@ -21,8 +21,8 @@ class OrdersControllers {
 
     async store(req, res) {
         const client = await pool.connect()
-        const {name, phone} = req.body
-        client.query(`INSERT INTO orders(customer_name, customer_phone) VALUES('${name}', '${phone}')`, (error, response) =>{
+        const {customer_name, customer_phone} = req.body
+        client.query(`INSERT INTO orders(customer_name, customer_phone) VALUES('${customer_name}', '${customer_phone}')`, (error, response) =>{
             if(error) {
                 throw new AppError(error, 401);
             } else {
@@ -32,7 +32,7 @@ class OrdersControllers {
                 })
             }
         })
-        pool.end();
+        // pool.end();
     }
 }
 
