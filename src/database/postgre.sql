@@ -12,14 +12,9 @@ CREATE TABLE customers (
 -- Table: orders
 CREATE TABLE orders (
     id serial,
-    customer_id serial NOT NULL,
-    product_id serial NOT NULL,
-    status varchar(50) NOT NULL,
-    quantity int NOT NULL,
-    discount bool NOT NULL,
-    discount_value money NOT NULL,
-    value money NOT NULL,
-    date date NOT NULL,
+    customer_name varchar(150) NOT NULL,
+    customer_phone varchar(150) NOT NULL,
+    status_payment varchar(10) NOT NULL,
     CONSTRAINT order_id PRIMARY KEY (id)
 );
 

@@ -47,23 +47,24 @@ class UsersController {
     }
 
     async store (req, res) {
-        try {
-            const { name, phone, address, email, password } = req.body;
+        const client = await pool.connect()
+        const { name, phone, address, email, password } = req.body;
 
-            pool.query(
-                `INSERT INTO customers (name, phone, address, email, password) VALUES('${name}', '${phone}', '${address}', '${email}', '${password}')`,  
-                (error, response) => {
-                    if (error){
-                        throw new AppError(error, 401);
-                    }
+        client.query(
+            `INSERT INTO customers (name, phone, address, email, password) VALUES('${name}', '${phone}', '${address}', '${email}', '${password}')`,  
+            (error, response) => {
+                if (error){
+                    throw new AppError(error, 401);
+                } else {
+                    const users = response.rows
+                    return res.status(201).json({
+                        users
+                    })
                 }
-            );
-        
-            return res.status(201)
+        });
 
-        } catch (error) {
-            res.status(500).json({ error });
-        }
+        pool.end();
+    
     }
 }
 

@@ -1,22 +1,45 @@
+const AppError = require('../utils/AppError');
+const pool = require('../configs/db/connect')
+
 class OrdersControllers {
 
-    async show(req, res) {
-        
-    }
-
-    async store(req, res) {
+    async index (req, res) {
         try {
-            const { id, customer_id, product_id } = req.params
-            const { status, quantity, discount, discount_value, value, date } = req.body;
-            const order = await db.none('INSERT INTO customers(id, customer_id, product_id,status, quantity, discount, discount_value, value, date) VALUES(${id}, ${customer_id}, ${product_id}, ${status}, ${quantity}, ${discount}, ${discount_value}, ${value}, ${date})',
-            { id, customer_id, product_id,status, quantity, discount, discount_value, value, date });
-        
-            return res.status(200).json({order});
-
+            pool.query(`SELECT * FROM orders;`, (error, response) => {
+                if (error){
+                    throw new AppError(error, 401);
+                } else {
+                    const orders = response.rows
+                    res.json(orders)
+                }
+            });
         } catch (error) {
             res.status(500).json({ error });
         }
+
+    }
+
+    async store(req, res) {
+        const client = await pool.connect()
+        const {name, phone} = req.body
+        client.query(`INSERT INTO orders(customer_name, customer_phone) VALUES('${name}', '${phone}')`, (error, response) =>{
+            if(error) {
+                throw new AppError(error, 401);
+            } else {
+                const orders = response.rows
+                return res.status(201).json({
+                    orders
+                })
+            }
+        })
+        pool.end();
     }
 }
+
+// async function() {
+//     const client = await pool.connect()
+//     await client.query('SELECT NOW()')
+//     client.release()
+//   })()
 
 module.exports = OrdersControllers;
