@@ -28,14 +28,12 @@ class OrdersControllers {
                 throw new AppError(error, 401);
             } else {
                 const orders = response.rows;
+                sendMessage(customer_name, customer_phone);
                 return res.status(201).json({
                     orders
                 })
             }
         })
-        console.log('antes');
-        sendMessage(customer_name, customer_phone);
-        console.log('depois');
     }
 }
 
