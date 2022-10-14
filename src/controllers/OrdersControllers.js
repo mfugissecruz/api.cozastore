@@ -1,6 +1,6 @@
 const AppError = require('../utils/AppError');
 const pool = require('../configs/db/connect');
-// const { sendMessage } = require('../services/twilio/twilioConfig');
+const { sendMessage } = require('../services/twilio/twilioConfig');
 
 class OrdersControllers {
 
@@ -33,9 +33,9 @@ class OrdersControllers {
                 })
             }
         })
-        // console.log('antes');
-        // sendMessage(customer_name, customer_phone);
-        // console.log('depois');
+        console.log('antes');
+        sendMessage(customer_name, customer_phone);
+        console.log('depois');
     }
 }
 
