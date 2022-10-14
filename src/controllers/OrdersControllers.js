@@ -1,6 +1,6 @@
 const AppError = require('../utils/AppError');
 const pool = require('../configs/db/connect');
-const { sendMessage } = require('../services/twilio/twilioConfig');
+const SendMessage  = require('../services/twilio/twilioConfig');
 
 class OrdersControllers {
 
@@ -28,7 +28,8 @@ class OrdersControllers {
                 throw new AppError(error, 401);
             } else {
                 const orders = response.rows;
-                sendMessage(customer_name, customer_phone);
+                const sendMessage = new SendMessage()
+                sendMessage.send(customer_name, customer_phone)
                 return res.status(201).json({
                     orders
                 })

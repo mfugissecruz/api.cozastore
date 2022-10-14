@@ -9,11 +9,13 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const response = new MessagingResponse();
 response.redirect('https://timberwolf-mastiff-9776.twil.io/demo-reply')
 
-const sendMessage = async (customer_name, customer_phone) => {
-  await client.messages.create({
-          body: response.message(`Olá ${customer_name}, muito obrigado por comprar conosco.Este é numero do seu pedido: ${Math.floor(9999* Math.random() + 1)}`),
-          from: '+14155238886',
-          to: `+55${customer_phone}`
-  }).then(message => console.log(message.sid));
+class SendMessage {
+  async send(customer_name, customer_phone){
+    await client.messages.create({
+            body: response.message(`Olá ${customer_name}, muito obrigado por comprar conosco.Este é numero do seu pedido: ${Math.floor(9999* Math.random() + 1)}`),
+            from: '+14155238886',
+            to: `+55${customer_phone}`
+    }).then(message => console.log(message.sid)).catch(err => console.log(err));
+  }
 }
- module.exports = {sendMessage};
+ module.exports = SendMessage;
