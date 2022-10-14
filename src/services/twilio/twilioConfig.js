@@ -1,10 +1,13 @@
-'use strict';
 require('dotenv/config')
+
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
+
+
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const response = new MessagingResponse();
+response.redirect('https://timberwolf-mastiff-9776.twil.io/demo-reply')
 
 const sendMessage = async (customer_name, customer_phone) => {
   await client.messages.create({
