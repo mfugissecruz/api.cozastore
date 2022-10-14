@@ -1,11 +1,12 @@
 const AppError = require('../utils/AppError');
-const pool = require('../configs/db/connect')
+const pool = require('../configs/db/connect');
+const { sendMessage } = require('../services/twilio/twilioConfig');
 
 class OrdersControllers {
 
     async index (req, res) {
         try {
-            pool.query(`SELECT * FROM orders;`, (error, response) => {
+            pool.query(`SELECT * FROM orders`, (error, response) => {
                 if (error){
                     throw new AppError(error, 401);
                 } else {
@@ -26,12 +27,15 @@ class OrdersControllers {
             if(error) {
                 throw new AppError(error, 401);
             } else {
-                const orders = response.rows
+                const orders = response.rows;
                 return res.status(201).json({
                     orders
                 })
             }
         })
+        console.log('antes');
+        sendMessage(customer_name, customer_phone);
+        console.log('depois');
     }
 }
 
