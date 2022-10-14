@@ -1,6 +1,6 @@
 const AppError = require('../utils/AppError');
 const pool = require('../configs/db/connect');
-const { sendMessage } = require('../services/twilio/twilioConfig');
+// const { sendMessage } = require('../services/twilio/twilioConfig');
 
 class OrdersControllers {
 
