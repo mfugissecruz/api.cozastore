@@ -33,9 +33,9 @@ class OrdersControllers {
                 })
             }
         })
-        console.log('antes');
-        sendMessage(customer_name, customer_phone);
-        console.log('depois');
+        // console.log('antes');
+        // sendMessage(customer_name, customer_phone);
+        // console.log('depois');
     }
 }
 
